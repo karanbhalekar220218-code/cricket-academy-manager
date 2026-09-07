@@ -1,4 +1,4 @@
-Lions Cricket Academy Manager — Client Demo
+Cricket Academy Manager — Client Demo
 =============================================
 Open index.html in Chrome/Edge/Safari.
 
