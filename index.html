@@ -411,16 +411,26 @@ async function authRequest(path, options = {}){
 }
 
 async function signInWithPassword(email, password){
-  const session = await authRequest(
-    '/auth/v1/token?grant_type=password',
-    {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    }
-  );
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+  if(error){
+    throw new Error(
+      error.message || 'Unable to sign in.'
+    );
+  }
+
+  const session = data.session;
+
+  if(!session){
+    throw new Error(
+      'Login succeeded but no session was returned.'
+    );
+  }
 
   localStorage.setItem(
     AUTH_STORAGE_KEY,
