@@ -413,7 +413,7 @@ async function authRequest(path, options = {}){
 async function signInWithPassword(email, password){
 
   const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
+    await window.supabaseClient.auth.signInWithPassword({
       email: email,
       password: password
     });
