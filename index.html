@@ -413,10 +413,28 @@ loginForm.addEventListener('submit', async function(e){
   loginBtn.textContent = 'Signing In...';
   authMessage.textContent = '';
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+  let data, error;
+
+try {
+  const result = await Promise.race([
+    supabase.auth.signInWithPassword({
+      email,
+      password
+    }),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Login request timed out. Please check the Supabase connection.')), 10000)
+    )
+  ]);
+
+  data = result.data;
+  error = result.error;
+
+} catch (err) {
+  authMessage.textContent = err.message;
+  loginBtn.disabled = false;
+  loginBtn.textContent = 'Sign In';
+  return;
+ }
 
   if(error){
     authMessage.textContent = error.message;
