@@ -28,10 +28,11 @@ box-shadow:var(--shadow)}.hero:after{content:"🏏";position:absolute;right:55px
 const SUPABASE_URL = 'https://ottydeymqmplrxarfxhi.supabase.co';;
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_vVlN8X459ZdwwtL4nTDUpg_MO-L9BtP';
 
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
+ const supabase = supabaseClient;
 </script>
 </head>
 <body>
