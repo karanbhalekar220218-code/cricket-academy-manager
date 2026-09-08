@@ -378,13 +378,13 @@ function clearStoredSession(){
 
 async function authRequest(path, options = {}){
   const headers = {
-    'apikey': SUPABASE_PUBLISHABLE_KEY,
+    'apikey': window.SUPABASE_PUBLISHABLE_KEY,
     'Content-Type': 'application/json',
     ...(options.headers || {})
   };
 
   const response = await fetch(
-    `${SUPABASE_URL}${path}`,
+    `${window.SUPABASE_URL}${path}`,
     {
       ...options,
       headers
@@ -475,11 +475,11 @@ async function loadAuthenticatedUser(session){
   try {
 
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/profiles?${params.toString()}`,
+      `${window.SUPABASE_URL}/rest/v1/profiles?${params.toString()}`,
       {
         method: 'GET',
         headers: {
-          'apikey': SUPABASE_PUBLISHABLE_KEY,
+          'apikey': window.SUPABASE_PUBLISHABLE_KEY
           'Authorization':
             `Bearer ${session.access_token}`,
           'Accept': 'application/json'
